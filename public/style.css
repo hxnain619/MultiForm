@@ -1,0 +1,247 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	font-family: montserrat, arial, verdana;
+}
+
+/*form styles*/
+#msform {
+	width: 100%;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+
+#msform input {
+	width: 100%;
+	padding: 15px 30px;
+}
+
+#msform div,
+input {
+	padding: 15px;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #00afff;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1db0f5;
+}
+
+/*headings*/
+.fs-title {
+	font-size: 32px;
+	text-transform: capitalize;
+	color: #2C3E50;
+	padding-bottom: 20px;
+}
+
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+	.fs-title {
+		font-size: 26px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.fs-title {
+		font-size: 18px;
+	}
+}
+
+.options {
+	padding: 20px 10px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	transition: border .5s;
+}
+
+.options:hover {
+	border: 1px solid #00afff;
+	border-radius: 10px;
+}
+
+.options.selected {
+	border: 1px solid #00afff;
+	border-radius: 10px;
+}
+
+.tick {
+	display: none;
+	position: absolute;
+	right: 10px;
+	color: #00afff;
+	font-size: 22px;
+}
+
+
+input,
+button {
+	outline: none;
+}
+
+.alert {
+	display: none;
+	position: fixed;
+	z-index: 90;
+	background: #717171d9;
+	color: white;
+}
+
+.fa-close {
+	position: absolute;
+	z-index: 90;
+	background: #717171d9;
+	color: white;
+	font-size: 14px;
+}
+
+.options img {
+	height: 100px;
+	width: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+	.options img {
+		height: 60px;
+		width: 60px;
+	}
+
+	.tick {
+		right: 6px;
+		font-size: 16px;
+	}
+}
+
+.action-button:disabled {
+	background-color: rgb(189, 189, 189) !important;
+}
+
+.submit {
+	background: #00afff;
+	color: white;
+	padding: 20px 10px;
+	filter: drop-shadow(2px 4px 6px gray);
+	border: none;
+	border-radius: 50px;
+	transition: filter .5s;
+	outline: none;
+}
+
+.submit:hover {
+	filter: drop-shadow(0px 0px 6px gray);
+}
+
+.last-page {
+	margin-top: 30px;
+}
+.last-page button {
+	margin-top: 20px;
+}
+
+@media only screen and (min-width: 800px) {
+	.last-page {
+		margin-top: 80px;
+	}
+}
+input {
+	width: 100%;
+	margin: 10px 0;
+}
+.radio {
+	width: 50%;
+	padding: 50px;
+}
+.gender {
+	width: 10% !important;
+}
+label {
+	float: left;
+}
+.check {
+	display: flex;
+	width: 100%;
+}
+#check {
+	width: 10% !important;
+}
+.check p {
+	width: 90%;
+	text-align: left;
+	line-height: 1.2;
+}
+
+input:focus, input:active, button:focus, button:active {
+	outline: none;
+} 
+.success {
+	font-size: 30px !important;
+	color: #00afff !important;
+	padding : 20px 30px;
+}
+
+.next, .previous {
+	border-radius: 50px !important;
+}
+.next {
+	float: right !important;
+}
+.previous {
+	float: left !important;
+}
+h2 {
+	font-size: 16px;
+	padding: 20px 10px;
+}
