@@ -16,9 +16,9 @@ app.use(function (req, res, next) {
 
 app.post('/subscribe', (req, res) => {
 
-    request.post('https://us19.api.mailchimp.com/3.0/lists/aec0b37ca0/members/')
+    request.post('https://<SERVER>.api.mailchimp.com/3.0/lists/<LIST_ID>/members/')
         .set('Content-Type', 'application/json;charset=utf-8')
-        .set("Authorization", 'Basic bGVvOjczYjVjNzY3Mjc2ZDQzNGZkNjQ5MmY1MzcxMmUyMDNmLXVzMTk=')
+        .set("Authorization", 'API_KEY')
         .send({
             "email_address": req.body.email,
             "status": "subscribed",
@@ -76,9 +76,9 @@ app.post('/subscribe', (req, res) => {
 })
 
 function UpdateSubscriber(email, FNAME, LNAME, GENDER, PHONE, LOCATED, Q1, A1, ICON1, Q2, A2, ICON2, Q3, A3, ICON3, Q4, A4, ICON4, Q5, A5, ICON5, Q6, A6, ICON6, Q7, A7, ICON7, Q8, A8, ICON8, res) {
-    request.patch(`https://us19.api.mailchimp.com/3.0/lists/aec0b37ca0/members/${email}`)
+    request.patch(`https://<SERVER>.api.mailchimp.com/3.0/lists/<LIST_ID>/members/${email}`)
         .set('Content-Type', 'application/json;charset=utf-8')
-        .set("Authorization", 'Basic bGVvOjczYjVjNzY3Mjc2ZDQzNGZkNjQ5MmY1MzcxMmUyMDNmLXVzMTk=')
+        .set("Authorization", 'API_KEY')
         .send({
             "status": "subscribed",
             "merge_fields": {
