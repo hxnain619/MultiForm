@@ -37,7 +37,9 @@ const RenderQuestion = () => {
             <div class="row">
                  ${opt}
                 </div>
-            ${Data.first ? '<input type="button" name="next" class="next action-button" value="Next" />' : '<input type="button" name="previous" class="previous action-button" value="Previous"> <input type="button" name="next" class="next action-button" value="Next" />'}
+
+            ${Data.first ? '<input type="button" name="next" class="next action-button" value="nächste" />' : 
+            '<input type="button" name="previous" class="previous action-button" value="vorherige"> <input type="button" name="next" class="next action-button" value="nächste" />'}
             </fieldset >`
         } else
         if (Data.type == "number") {
@@ -46,10 +48,10 @@ const RenderQuestion = () => {
             <h2 class="fs-title"> ${Data.title} </h2>
             <h3 class="fs-subtitle"> ${Data.desc} </h3>
             <div class="row">
-                <input type="number" placeholder="Biespiel: 81373" min="10000" max="99999" data-query="${Data.title}" data-index="${Data.id}" onchange="AddFormAnswer(event)"/>
+                <input type="number" placeholder="Biespiel: 81373" id="state_num" min="10000" max="99999" data-query="${Data.title}" data-index="${Data.id}" onchange="AddFormAnswer(event)"/>
             </div>
-            <input type="button" name="previous" class="previous action-button" value="Previous">
-            <input type="button" name="next" class="next action-button" value="Next" />
+            <input type="button" name="previous" class="previous action-button" value="vorherige">
+            <input type="button" name="next" class="next action-button" value="nächste" />
             </fieldset >`
 
         } else if (Data.type == 'form' && Data.last) {
@@ -99,9 +101,9 @@ const RenderQuestion = () => {
 
             </div>
             <div class="col col-sm-12 col-md-6 col-lg-6 last-page">
-                <img src='https://i.ibb.co/xfcf37w/Map.png' height='120px' width='120px' />
+                <img src='https://i.ibb.co/xfcf37w/Map.png' height='120px' width='120px' /> <br />
                 <button type="button" id="submit" class="submit" >
-                    Verkaufspreis-Schätzung erhalten kostenlos und unverbindlich 
+                    Verkaufspreis-Schätzung erhalten <br /> kostenlos und unverbindlich 
                 </button>
                 </div>
             </div>
@@ -138,8 +140,11 @@ const AddFormAnswer = (e) => {
     let query = e.currentTarget.getAttribute('data-query');
     let id = e.currentTarget.getAttribute('data-index');
     let title = e.currentTarget.value;
-
-    AddAnswers(query, '', title, id);
+    if (Number(title) > 10000 && Number(title) < 99999) {
+        AddAnswers(query, '', title, id);
+    } else {
+        Alert("Der eingegebene Wert ist nicht korrekt", "#960101")
+    }
 
 }
 
@@ -213,7 +218,7 @@ const SelectedOption = (e => {
 
 })
 
-const ValidateAnswers = (i) => {
+const ValidateAnswers = (i, num) => {
     let validate = true;
 
     if (ANSWERS.length !== i + 1) {

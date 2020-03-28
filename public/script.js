@@ -1,6 +1,9 @@
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
+var service_id = "default_service";
+var template_id = "template_GCQ0zyFQ";
+var user_id = "user_T7nqQHHfJaUOTMV0MfQ8e";
 
 function AssignFunc() {
 
@@ -13,9 +16,8 @@ function AssignFunc() {
 function NEXT() {
 
   let index = $(this).parent().data("elem");
-  console.log(index);
 
-  if (ANSWERS.length !== 0 && ((typeof (index) == 'number' && ValidateAnswers(index)) || (typeof (index) == 'boolean' && (index == true)) || (typeof (index) == 'string' && (index) == 'number') && ValidateLocation())) {
+  if (ANSWERS.length !== 0 && ((typeof (index) == 'number' && ValidateAnswers(index, 'num')) || (typeof (index) == 'boolean' && (index == true)) || (typeof (index) == 'string' && ValidateLocation()))) {
 
     if (animating) return false;
     animating = true;
@@ -56,7 +58,6 @@ function NEXT() {
 }
 
 function PREV() {
-  console.log(ANSWERS);
   CheckAndMarkSelected();
 
   if (animating) return false;
@@ -156,60 +157,58 @@ function SUBMIT() {
 
     gender = $.trim(gender);
 
-    fetch('https://buy-youtube-views.herokuapp.com/subscribe', {
-        method: "POST",
-        headers: {
-          'Content-Type': "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          FNAME: fNAme,
-          LNAME: lNAme,
-          GENDER: gender,
-          PHONE: `${tel}`,
-          LOCATED,
-          Q1,
-          A1,
-          ICON1,
-          Q2,
-          A2,
-          ICON2,
-          Q3,
-          A3,
-          ICON3,
-          Q4,
-          A4,
-          ICON4,
-          Q5,
-          A5,
-          ICON5,
-          Q6,
-          A6,
-          ICON6,
-          Q7,
-          A7,
-          ICON7,
-          Q8,
-          A8,
-          ICON8
-        })
-      })
-      .then(res => {
-        if (res && res.status == 200) {
-          $('#msform').html(`<fieldset >
-        <div class="row" >
-          <div class="col col-sm-12 col-md-12 col-lg-12" >
-            <img src="https://thumbs.gfycat.com/CleanQuickJuliabutterfly-small.gif" />
-            <div class="success" > Das Formular wurde erfolgreich gesendet. </div>
-          </div>
-        </div>
-      </fieldset>`)
-          window.setTimeout(() => window.location.href = "https://wertermittlung.baierl-immobilien.de/danke-seite", 2000);
-        }
-      })
-      .catch(err => {
-        Alert('Netzwerkfehler aufgetreten', '#960101')
-      })
+    var data = {
+      service_id,
+      template_id,
+      user_id,
+      template_params: {
+        "reply_to": email,
+        "from_name": email,
+        "to_name": fNAme + " " + lNAme,
+        "FNAME": fNAme,
+        "LNAME": lNAme,
+        "GENDER": gender,
+        "PHONE": tel,
+        "LOCATED": LOCATED,
+        "Q1": Q1,
+        "A1": A1,
+        "ICON1": ICON1,
+        "Q2": Q2,
+        "A2": A2,
+        "ICON2": ICON2,
+        "Q3": Q3,
+        "A3": A3,
+        "ICON3": ICON3,
+        "Q4": Q4,
+        "A4": A4,
+        "ICON4": ICON4,
+        "Q5": Q5,
+        "A5": A5,
+        "ICON5": ICON5,
+        "Q6": Q6,
+        "A6": A6,
+        "ICON6": ICON6,
+        "Q7": Q7,
+        "A7": A7,
+        "ICON7": ICON7,
+        "Q8": Q8,
+        "A8": A8,
+        "ICON8": ICON8
+      }
+    }
+
+    $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json'
+    }).done(function () {
+      console.log('Your mail is sent!');
+      // window.top.setTimeout(() => window.top.location.href = "https://wertermittlung.baierl-immobilien.de/danke-seite", 2000);
+      document.getElementsByTagName("iframe")[0].contentWindow.postMessage('{message: "message"}', '*');
+    }).fail(function (error) {
+      console.log('Oops... ' + JSON.stringify(error));
+      Alert('Netzwerkfehler aufgetreten', '#960101')
+    });
 
   } else {
     Alert("Bitte vervollständigen Sie Ihre Angaben", '#960101')
